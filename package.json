@@ -1,0 +1,17 @@
+{
+  "name": "hipmunk_challenge",
+  "version": "1.0.0",
+  "description": "Hipmunk Search API Code Challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Carroll Yu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "superagent": "^3.5.2"
+  }
+}
