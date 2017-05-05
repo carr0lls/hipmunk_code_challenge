@@ -42,7 +42,7 @@ function scrapeData(provider) {
 				return reject(errorObject);
         	}
         	else {
-        		resolve({ data: result.body.results, index: 0 });
+        		resolve(result.body.results);
         	}
     	});
 	}		
@@ -63,35 +63,16 @@ function getHotels(providers) {
 }
 
 function mergeData(providerData) {
-	let hotelData = { results: [] }, mergedLength = 0;
-	let pdata, highestEcstasyData, highestEcstasyProvider;
-
-	for (let provider of providerData) 
-		mergedLength += provider['data'].length;
-
-	for (let i=0; i < mergedLength; i++) {			
-		highestEcstasyData = null;
-		highestEcstasyProvider = null;
-		
-		for (let provider in providerData) {
-			pdata = providerData[provider]['data'][providerData[provider]['index']];
-
-			if (providerData[provider]['index'] === providerData[provider]['data'].length)
-				continue;
-			
-			if (highestEcstasyData === null) {
-				highestEcstasyData = pdata;
-				highestEcstasyProvider = provider;
-			}
-			else if (pdata.ecstasy > highestEcstasyData.ecstasy) {
-				highestEcstasyData = pdata;
-				highestEcstasyProvider = provider;
-			}
+	let hotelData = { results: [] };
+	
+	for (let provider of providerData) {
+		for (let pdata of provider) {
+			hotelData.results.push(pdata);
 		}
-
-		hotelData.results.push(highestEcstasyData);
-		providerData[highestEcstasyProvider]['index']++;
 	}
 
+	hotelData.results.sort(function(a, b) {
+		return b.ecstasy - a.ecstasy;
+	});
 	return hotelData;
 }
