@@ -12,9 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // API routes
-app.get('/api', function(req, res) {
-	res.end('<div>Hipmunk Search API coding challenge</div>');
-});
 app.get('/hotels/search', function(req, res) {
 	getHotels(PROVIDERS)
 		.then(mergeData)
@@ -27,7 +24,7 @@ app.get('/hotels/search', function(req, res) {
 });
 
 app.listen(app.get('port'), function() {
-  console.log('Hipmunk - Hotel Search API: http://localhost:' + app.get('port') + '/');
+	console.log('Hipmunk - Hotel Search API: http://localhost:' + app.get('port') + '/');
 });
 
 function scrapeData(provider) {
@@ -64,26 +61,25 @@ function getHotels(providers) {
 
 function mergeData(providerData) {
 	let hotelData = { results: [] }, mergedLength = 0;
-	let pdata, highestEcstasyData, highestEcstasyProvider;
+	let currentProviderDataIndex, pdata, highestEcstasyData, highestEcstasyProvider;
 
 	for (let provider of providerData) 
 		mergedLength += provider['data'].length;
 
-	for (let i=0; i < mergedLength; i++) {			
+	for (let i=0; i < mergedLength; i++) {
 		highestEcstasyData = null;
 		highestEcstasyProvider = null;
 		
 		for (let provider in providerData) {
-			pdata = providerData[provider]['data'][providerData[provider]['index']];
-
-			if (providerData[provider]['index'] === providerData[provider]['data'].length)
+			// Current index in provider's data collection being assessed
+			currentProviderDataIndex = providerData[provider]['index'];
+			// Skip this provider's data collection if all of it's data has already been merged
+			if (currentProviderDataIndex === providerData[provider]['data'].length)
 				continue;
+			// Current highest ecstasy data set from the provider's data collection that hasn't been merged
+			pdata = providerData[provider]['data'][currentProviderDataIndex];
 			
-			if (highestEcstasyData === null) {
-				highestEcstasyData = pdata;
-				highestEcstasyProvider = provider;
-			}
-			else if (pdata.ecstasy > highestEcstasyData.ecstasy) {
+			if (highestEcstasyData === null || pdata.ecstasy > highestEcstasyData.ecstasy) {
 				highestEcstasyData = pdata;
 				highestEcstasyProvider = provider;
 			}
