@@ -30,18 +30,18 @@ app.listen(app.get('port'), function() {
 function scrapeData(provider) {
 	return function(resolve, reject) {
 		request.get('http://localhost:9000/scrapers/'+provider).end(function(err, result) {
-    		if (err) {
+			if (err) {
 				// console.log('failed to retrieve '+provider+' hotel list', err);
 				let errorObject = { 
-					    reason: 'failed to retrieve '+provider+' hotel list',
+					reason: 'failed to retrieve '+provider+' hotel list',
 					error: err
 				}
 				return reject(errorObject);
-        	}
-        	else {
-        		resolve({ data: result.body.results, index: 0 });
-        	}
-    	});
+			}
+			else {
+				resolve({ data: result.body.results, index: 0 });
+			}
+		});
 	}		
 }
 
