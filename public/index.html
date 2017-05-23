@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  		<style>
+  			*,
+  			*:before,
+  			*:after {
+  				border-box: box-sizing;
+  			}
+  			.hotels-list {
+  				margin: 0;
+  				padding: 0;
+  			}
+  			.hotels-list li {
+  				display: flex;
+				border-bottom: 1px dotted gray;
+				list-style: none;
+				margin-bottom: 10px;
+				width: 100%;
+  			}
+  			.hotels-list li div {
+				display: inline-block;
+				padding: 10px;
+  			}
+  			.hotels-list .name {
+  				width: 20%;
+  			}
+  			.hotels-list .desc {
+  				width: 50%;
+  			}
+  			.hotels-list .picture {
+  				width: 20%;
+  			}
+  			.hotels-list .rating {
+  				width: 10%;
+  			}
+  			.header {
+  				display: flex;
+  				width: 100%;
+  				height: 100px;
+				background: #2C92E1;
+				color: white;
+				justify-content: center;
+    			align-items: center;
+    			margin-bottom: 10px;
+  			}
+  			.name-filter, .ratings-filter {
+  				border: 1px solid #929AA8;
+  				border-radius: 5px;
+  			}
+  		</style>
+	</head>
+	<body>
+		<div id="content">
+			<div class="header">
+				Hotels
+			</div>
+			<div class="hotels">
+				Filter by Name:
+				<input type="text" class="name-filter" name="name-filter" />
+				Filter by Star Rating:
+				<select class="ratings-filter">
+					<option value="5">5</option>
+					<option value="4">4+</option>
+					<option value="3">3+</option>
+					<option value="2">2+</option>
+					<option value="0" selected>Any</option>
+				</select>
+				<ul class="hotels-list"></ul>
+			</div>
+		</div>
+		<script src="scripts/app.js"></script>		
+	</body>
+</html>
