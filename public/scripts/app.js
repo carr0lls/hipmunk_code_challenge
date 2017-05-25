@@ -21,7 +21,7 @@ $(document).ready(function(e) {
 	function renderHotelList(hotels) {
 		let hotelsList = `<ul class="hotels-list">`;
 
-		hotelsList += `<li class="clickable">
+		hotelsList += `<li>
 				<div class="name">Name</div>
 				<div class="desc">Description</div>
 				<div class="picture">Picture</div>
@@ -62,9 +62,11 @@ $(document).ready(function(e) {
 			});
 		}
 
-		hotels = hotels.filter(function(hotel) {
-			return (hotel.name.toLowerCase().indexOf(name.toLowerCase()) !== -1) ? true : false;
-		});
+		if (name) {
+			hotels = hotels.filter(function(hotel) {
+				return (hotel.name.toLowerCase().indexOf(name.toLowerCase()) !== -1) ? true : false;
+			});
+		}
 
 		renderHotelList(hotels);
 	}
